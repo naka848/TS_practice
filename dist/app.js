@@ -1,6 +1,18 @@
 "use strict";
 const button = document.querySelector('button');
-function clickHandler(message) {
-    console.log('Clicked!' + message);
+if (button) {
+    button.addEventListener('click', event => {
+        console.log(event);
+    });
 }
-button.addEventListener('click', clickHandler.bind(null, "You're welcome!"));
+const hobbies = ['Sports', 'Cooking'];
+const activeHobbies = ['Hiking'];
+activeHobbies.push(...hobbies);
+console.log(activeHobbies);
+const person = {
+    name: 'Max',
+    age: '30',
+};
+const copiedPerson = Object.assign({}, person);
+console.log(copiedPerson);
+const add = () => { };
