@@ -1,64 +1,114 @@
-// const add = (a: number, b: number = 1) => a + b;
+class Department {
+  static fiscalYear = 2020;
+  // private readonly id: string;
+  // name: string;
+  protected employees: string[] = [];
 
-// const printOutput: (output: string | number) => void = (output) => {
-//   console.log(output);
-// };
+  static createEmployee(name:string){
+    return {name:name}
+  }
 
-// printOutput(add(1));
+  constructor(private readonly id: string, public name: string) {
+    // this.id = id;
+    // this.name = n;
+    console.log(Department.fiscalYear)
+    // console.log(this.fiscalYear)
+  }
 
-const button = document.querySelector("button");
+  describe(this: Department) {
+    console.log(`Department (${this.id}): ${this.name}`);
+  }
 
-if (button) {
-  button.addEventListener("click", (event) => {
-    console.log(event);
-  });
+  addEmployee(employee: string) {
+    // validation etc
+    // this.id = 'd2';
+    this.employees.push(employee);
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
 }
 
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: string, admins: string[]) {
+    super(id, "IT");
+    this.admins = admins;
+  }
+}
+
+class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error('レポートが見つかりません')
+  }
+
+  set mostRecentReport(value: string){
+    if(!value){
+      throw new Error('正しい値を設定してください')
+    }
+    this.addReport(value);
+  }
+
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+    this.lastReport = reports[0];
+  }
+
+  addReport(text: string) {
+    this.reports.push(text);
+    this.lastReport = text;
+  }
+
+  printReports() {
+    console.log("!");
+    console.log(this.reports);
+    console.log(this.lastReport);
+  }
+
+  addEmployee(name: string) {
+    if (name === "Max") {
+      return;
+    }
+    this.employees.push(name);
+  }
+}
+
+const it = new ITDepartment("d1", ["Max"]);
+
+it.addEmployee("Max");
+it.addEmployee("Manu");
+
+// it.employees[2] = 'Anna';
+// it.name = 'NEW NAME';
+
+it.describe();
+it.printEmployeeInformation();
+
+console.log(it);
+
+const accounting = new AccountingDepartment("d2", []);
 
 
-const person = {
-  firstName: "Max",
-  age: "30",
-};
 
-const {firstName:userName,age} = person;
+accounting.addReport("Something");
+accounting.printReports();
+accounting.addEmployee("Max");
+accounting.addEmployee("Mii");
+accounting.printEmployeeInformation();
 
-console.log(userName);
+console.log(accounting.mostRecentReport);
+accounting.mostRecentReport = '通期会計レポート';
 
+// const accountingCopy = { name: 'DUMMY', describe: it.describe };
 
+// accountingCopy.describe();
 
-
-
-
-
-
-
-// const copiedPerson = {
-//   ...person,
-// };
-
-// console.log(copiedPerson);
-
-// const add = (...numbers: number[]) => {
-//   return numbers.reduce((curResult, curValue) => {
-//     return curResult + curValue;
-//   }, 0);
-// };
-
-// const addedNumbers = add(5, 10, 2, 3.7);
-
-// console.log(addedNumbers);
-
-
-
-
-// const hobbies = ["Sports", "Cooking"];
-// const activeHobbies = ["Hiking"];
-
-// activeHobbies.push(...hobbies);
-
-// console.log(activeHobbies);
-
-// const [hobby1,hobby2,...remainingHobbies] = hobbies;
-// console.log(hobby1,hobby2);
-
+const employee1 = Department.createEmployee('Mu-mu');
+console.log(employee1,Department.fiscalYear)
