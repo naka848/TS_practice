@@ -1,114 +1,50 @@
-class Department {
-  static fiscalYear = 2020;
-  // private readonly id: string;
-  // name: string;
-  protected employees: string[] = [];
+// ファンクション型の復習
+// 戻り値はnumber型
+// type AddFn = (a:number,b:number) => number;
+interface AddFn {
+  // 匿名メソッドのようなもの
+  (a:number,b:number):number
+}
 
-  static createEmployee(name:string){
-    return {name:name}
+// 新しい関数を格納するための変数を宣言
+let add : AddFn;
+
+add = (n1,n2) =>{
+  return n1 + n2;
+}
+
+interface Named{
+  readonly name?: string;
+  outputName?: string;
+}
+interface Greetable extends Named {
+  greet(phrase: string): void;
+}
+
+class Person implements Greetable {
+  name: string;
+  age = 50;
+
+  constructor(n: string) {
+    // if(n){
+      this.name = n;
+    // }
+    // return;
   }
 
-  constructor(private readonly id: string, public name: string) {
-    // this.id = id;
-    // this.name = n;
-    console.log(Department.fiscalYear)
-    // console.log(this.fiscalYear)
-  }
-
-  describe(this: Department) {
-    console.log(`Department (${this.id}): ${this.name}`);
-  }
-
-  addEmployee(employee: string) {
-    // validation etc
-    // this.id = 'd2';
-    this.employees.push(employee);
-  }
-
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
+  greet(phrase: string): void {
+    if(this.name){
+      console.log(phrase  + ' ' + this.name);
+    }else{
+      console.log('ないよ～ん')
+    }
   }
 }
 
-class ITDepartment extends Department {
-  admins: string[];
-  constructor(id: string, admins: string[]) {
-    super(id, "IT");
-    this.admins = admins;
-  }
-}
+let user1: Greetable;
 
-class AccountingDepartment extends Department {
-  private lastReport: string;
+user1 = new Person('mi');
 
-  get mostRecentReport() {
-    if (this.lastReport) {
-      return this.lastReport;
-    }
-    throw new Error('レポートが見つかりません')
-  }
+user1.greet("hello");
 
-  set mostRecentReport(value: string){
-    if(!value){
-      throw new Error('正しい値を設定してください')
-    }
-    this.addReport(value);
-  }
-
-  constructor(id: string, private reports: string[]) {
-    super(id, "Accounting");
-    this.lastReport = reports[0];
-  }
-
-  addReport(text: string) {
-    this.reports.push(text);
-    this.lastReport = text;
-  }
-
-  printReports() {
-    console.log("!");
-    console.log(this.reports);
-    console.log(this.lastReport);
-  }
-
-  addEmployee(name: string) {
-    if (name === "Max") {
-      return;
-    }
-    this.employees.push(name);
-  }
-}
-
-const it = new ITDepartment("d1", ["Max"]);
-
-it.addEmployee("Max");
-it.addEmployee("Manu");
-
-// it.employees[2] = 'Anna';
-// it.name = 'NEW NAME';
-
-it.describe();
-it.printEmployeeInformation();
-
-console.log(it);
-
-const accounting = new AccountingDepartment("d2", []);
-
-
-
-accounting.addReport("Something");
-accounting.printReports();
-accounting.addEmployee("Max");
-accounting.addEmployee("Mii");
-accounting.printEmployeeInformation();
-
-console.log(accounting.mostRecentReport);
-accounting.mostRecentReport = '通期会計レポート';
-
-// const accountingCopy = { name: 'DUMMY', describe: it.describe };
-
-// accountingCopy.describe();
-
-const employee1 = Department.createEmployee('Mu-mu');
-console.log(employee1,Department.fiscalYear)
+console.log(user1)
