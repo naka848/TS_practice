@@ -1,50 +1,28 @@
-// ファンクション型の復習
-// 戻り値はnumber型
-// type AddFn = (a:number,b:number) => number;
-interface AddFn {
-  // 匿名メソッドのようなもの
-  (a:number,b:number):number
-}
-
-// 新しい関数を格納するための変数を宣言
-let add : AddFn;
-
-add = (n1,n2) =>{
-  return n1 + n2;
-}
-
-interface Named{
-  readonly name?: string;
-  outputName?: string;
-}
-interface Greetable extends Named {
-  greet(phrase: string): void;
-}
-
-class Person implements Greetable {
+type Admin = {
   name: string;
-  age = 50;
+  privileges: string[];
+};
 
-  constructor(n: string) {
-    // if(n){
-      this.name = n;
-    // }
-    // return;
-  }
+type Employee = {
+  name: string;
+  startDate: Date;
+};
 
-  greet(phrase: string): void {
-    if(this.name){
-      console.log(phrase  + ' ' + this.name);
-    }else{
-      console.log('ないよ～ん')
-    }
-  }
-}
+type EleventedEmploee = Admin & Employee;
 
-let user1: Greetable;
+const e1: EleventedEmploee = {
+  name: "Max",
+  privileges: ["creare-server"],
+  startDate: new Date(),
+};
 
-user1 = new Person('mi');
+console.log(e1);
 
-user1.greet("hello");
+type Combinable = string | number;
+type Numeric = number | boolean;
 
-console.log(user1)
+// Universalはnumber型になる
+type Universal = Combinable & Numeric;
+
+// Universalはnumber型になる
+const u : Universal = 4;
