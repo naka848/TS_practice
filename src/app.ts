@@ -18,13 +18,16 @@ const e1: EleventedEmploee = {
   startDate: new Date(),
 };
 
-console.log(e1);
+// console.log(e1);
 
 type Combinable = string | number;
 type Numeric = number | boolean;
 
 // Universalはnumber型になる
 type Universal = Combinable & Numeric;
+
+function add(a: number, b: number): number;
+function add(a:string, b:string):string;
 
 function add(a: Combinable, b: Combinable) {
   if (typeof a === "string" || typeof b === "string") {
@@ -34,112 +37,125 @@ function add(a: Combinable, b: Combinable) {
   }
 }
 
-function printEmployeeInformation(e: UnknownEmployee) {
-  console.log(e.name);
-  if ("privileges" in e) {
-    console.log("Privileges: " + e.privileges);
-  }
-  if ("startDate" in e) {
-    console.log("startDate: " + e.startDate);
-  }
-}
+const result = add('Hello', 'TypeScript');
+// result.split('');
+console.log(result.split(''));
 
-const eee: UnknownEmployee = {
-  name: "Moomin",
-  privileges: ["my"],
-  // startDate:new Date(),
-};
+// function printEmployeeInformation(e: UnknownEmployee) {
+//   console.log(e.name);
+//   if ("privileges" in e) {
+//     console.log("Privileges: " + e.privileges);
+//   }
+//   if ("startDate" in e) {
+//     console.log("startDate: " + e.startDate);
+//   }
+// }
 
-printEmployeeInformation(eee);
+// const eee: UnknownEmployee = {
+//   name: "Moomin",
+//   privileges: ["my"],
+//   // startDate:new Date(),
+// };
 
-class Car {
-  drive() {
-    console.log("運転中...");
-  }
-}
+// printEmployeeInformation(eee);
 
-class Truck {
-  drive() {
-    console.log("トラック運転中...");
-  }
+// class Car {
+//   drive() {
+//     console.log("運転中...");
+//   }
+// }
 
-  loadCargo(amount: number) {
-    console.log("荷物を載せていきます..." + amount);
-  }
-}
+// class Truck {
+//   drive() {
+//     console.log("トラック運転中...");
+//   }
 
-type Vehicle = Car | Truck;
+//   loadCargo(amount: number) {
+//     console.log("荷物を載せていきます..." + amount);
+//   }
+// }
 
-const v1 = new Car();
-const v2 = new Truck();
+// type Vehicle = Car | Truck;
 
-function useVehicle(v: Vehicle) {
-  v.drive();
-  if (v instanceof Truck) {
-    v.loadCargo(1000);
-  }
-}
+// const v1 = new Car();
+// const v2 = new Truck();
 
-useVehicle(v1);
-useVehicle(v2);
+// function useVehicle(v: Vehicle) {
+//   v.drive();
+//   if (v instanceof Truck) {
+//     v.loadCargo(1000);
+//   }
+// }
 
-interface Bird {
-  // 'bird'という文字列だけを許容するstringの型を設定
-  // ※'bird'は実際の値ではなく、literal型
-  // （インターフェースは値を持つことができない）
-  type: "bird";
-  flyingSpeed: number;
-}
+// useVehicle(v1);
+// useVehicle(v2);
 
-interface Horse {
-  type: "horse";
-  runningSpeed: number;
-}
+// interface Bird {
+//   // 'bird'という文字列だけを許容するstringの型を設定
+//   // ※'bird'は実際の値ではなく、literal型
+//   // （インターフェースは値を持つことができない）
+//   type: "bird";
+//   flyingSpeed: number;
+// }
 
-type Animal = Bird | Horse;
+// interface Horse {
+//   type: "horse";
+//   runningSpeed: number;
+// }
 
-function moveAnimal(animal: Animal) {
-  let speed;
-  console.log(animal);
-  switch (animal.type) {
-    case "bird":
-      speed = animal.flyingSpeed;
-      break;
-    case "horse":
-      speed = animal.runningSpeed;
-      break;
-  }
-  console.log("移動速度: " + speed);
-}
+// type Animal = Bird | Horse;
 
-moveAnimal({ type: "bird", flyingSpeed: 10 });
+// function moveAnimal(animal: Animal) {
+//   let speed;
+//   console.log(animal);
+//   switch (animal.type) {
+//     case "bird":
+//       speed = animal.flyingSpeed;
+//       break;
+//     case "horse":
+//       speed = animal.runningSpeed;
+//       break;
+//   }
+//   console.log("移動速度: " + speed);
+// }
 
-// 型推論:const paragraph: HTMLParagraphElement | null
-// const paragraph = document.querySelector("p");
+// moveAnimal({ type: "bird", flyingSpeed: 10 });
 
-// 型推論:const paragraph: HTMLElement | null
-// const paragraph = document.getElementById('message-output')
+// // 型推論:const paragraph: HTMLParagraphElement | null
+// // const paragraph = document.querySelector("p");
 
-// 型推論:const paragraph: HTMLElement | null
-// const userInputElement = <HTMLInputElement>(
-//   document.getElementById("user-input")!
-// );
+// // 型推論:const paragraph: HTMLElement | null
+// // const paragraph = document.getElementById('message-output')
 
-// const userInputElement = document.getElementById( "user-input" )! as HTMLInputElement;
+// // 型推論:const paragraph: HTMLElement | null
+// // const userInputElement = <HTMLInputElement>(
+// //   document.getElementById("user-input")!
+// // );
 
-// const userInputElement = document.getElementById( "user-input" )! as HTMLInputElement;
+// // const userInputElement = document.getElementById( "user-input" )! as HTMLInputElement;
 
-const userInputElement = document.getElementById( "user-input" );
+// // const userInputElement = document.getElementById( "user-input" )! as HTMLInputElement;
 
-if(userInputElement){
-  (userInputElement as HTMLInputElement).value = "こんにちは";
-}
+// const userInputElement = document.getElementById("user-input");
 
-// valueプロパティはすべてのHTMLタグには存在しないのでエラーになる
-// 「HTMLElement」は特定のHTMLタグにしかないプロパティはサポートしない
-// userInputElement.value = "こんにちは";
+// if (userInputElement) {
+//   (userInputElement as HTMLInputElement).value = "こんにちは";
+// }
 
-// const m = document.getElementById('choice');
-// console.log(m)
+// // valueプロパティはすべてのHTMLタグには存在しないのでエラーになる
+// // 「HTMLElement」は特定のHTMLタグにしかないプロパティはサポートしない
+// // userInputElement.value = "こんにちは";
 
-// paragraph?.textContent = new Date();
+// // const m = document.getElementById('choice');
+// // console.log(m)
+
+// // paragraph?.textContent = new Date();
+
+// interface ErrorContainer {
+//   [prop: string]: string;
+// }
+
+// const errorBag: ErrorContainer = {
+//   email: "正しいメールアドレスではありません",
+//   username: "ユーザー名に記号を含めることはできません",
+// };
