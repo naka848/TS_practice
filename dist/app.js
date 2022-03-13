@@ -1,16 +1,6 @@
 "use strict";
-const e1 = {
-    name: "Max",
-    privileges: ["creare-server"],
-    startDate: new Date(),
-};
-function add(a, b) {
-    if (typeof a === "string" || typeof b === "string") {
-        return a.toString() + b.toString();
-    }
-    else {
-        return a + b;
-    }
+function merge(objA, objB) {
+    return Object.assign(objA, objB);
 }
-const result = add('Hello', 'TypeScript');
-console.log(result.split(''));
+const mergedObj = merge("momo", 30);
+const mergedObj2 = merge({ name: "Max" }, { age: 30 });
