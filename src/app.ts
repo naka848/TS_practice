@@ -15,16 +15,28 @@
 //   data.split('');
 // })
 
-// function merge<T, U>(objA: T, objB: U): T & U
-// →この関数は交差型を返すと推論する
-function merge<T, U>(objA: T, objB: U) {
+function merge<T extends object, U extends object>(objA: T, objB: U) {
   return Object.assign(objA, objB);
 }
 
-// const mergedObj: {name: string;} & {age: number;};
+// エラー:型 'number' の引数を型 'object' のパラメーターに割り当てることはできません
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, 30);
 
-const mergedObj = merge<string, number>("momo", 30);
-const mergedObj2 = merge<{ name: string }, { age: number }>(
-  { name: "Max" },
-  { age: 30 }
-);
+// 結果：{name: 'Max', hobbies: Array(1)}
+console.log(mergedObj);
+
+interface Lengthy {
+  length: number;
+}
+
+
+function countAndDescribe<T extends Lengthy>(element: T):[T,string]{
+  let descriptionText = '値がありません。'
+  if(element.length > 0){
+    descriptionText = '値は' + element.length + '個です。';
+  }
+  return [element,descriptionText]
+}
+
+// console.log(countAndDescribe({length:3}))
+console.log(countAndDescribe([]))
