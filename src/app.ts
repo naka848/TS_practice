@@ -21,7 +21,7 @@ const activeHobbies = ['Hiking'];
 
 activeHobbies.push(...hobbies);
 
-console.log(activeHobbies);
+// console.log(activeHobbies);
 
 const person ={
     name:'Max',
@@ -32,6 +32,6 @@ const copiedPerson = {
     ...person,
 }
 
-console.log(copiedPerson);
+// console.log(copiedPerson);
 
 const add = () => {}
