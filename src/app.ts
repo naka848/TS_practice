@@ -1,37 +1,82 @@
-// const add = (a: number, b: number = 1) => a + b;
+// // ジェネリック型 'Array<T>' には 1 個の型引数が必要です
+// const names: Array<string> = [];
 
-// const printOutput: (output: string | number) => void = (output) => {
-//   console.log(output);
-// };
+// // const promise: Promise<unknown>
+// // 定数promiseは、特定の型「Promise」を持っている
+// // 理由:Promiseは最終的にはなにかによってresolveされるため
+// // const promise: Promise<string>
+// const promise:Promise<string> = new Promise((resoleve, reject) => {
+//   setTimeout(() => {
+//     resoleve('mo');
+//   }, 2000);
+// });
 
-// printOutput(add(1));
+// promise.then(data=>{
+//   data.split('');
+// })
 
-
-
-const button = document.querySelector('button');
-
-if(button){
-    button.addEventListener('click',event =>{
-        console.log(event);
-    })
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
 }
 
-const hobbies = ['Sports','Cooking'];
-const activeHobbies = ['Hiking'];
+// エラー:型 'number' の引数を型 'object' のパラメーターに割り当てることはできません
+const mergedObj = merge({ name: "Max", hobbies: ["Sports"] }, { age: 30 });
 
-activeHobbies.push(...hobbies);
+// 結果：{name: 'Max', hobbies: Array(1)}
+console.log(mergedObj);
 
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "値がありません。";
+  if (element.length > 0) {
+    descriptionText = "値は" + element.length + "個です。";
+  }
+  return [element, descriptionText];
+}
+
+// console.log(countAndDescribe({length:3}))
+console.log(countAndDescribe([]));
+
+<<<<<<< HEAD
 // console.log(activeHobbies);
+=======
+// obj[key]
+// オブジェクトのプロパティに[]でアクセス
+// JavaScriptの通常の構文
+>>>>>>> 33ac1b824f170d551356ad8fe4e63e361abdadb9
 
-const person ={
-    name:'Max',
-    age:'30',
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return "Value: " + obj[key];
 }
 
-const copiedPerson = {
-    ...person,
-}
+// 2つ目の引数「name」は、1つ目の引数のオブジェクトにプロパティとして存在しないのでエラー
+const result = extractAndConvert({name:'Max'}, "name");
+console.log(result);
 
+class DataStorage{
+  private data = [];
+
+  addItem(item){
+    this.data.push(item);
+  }
+
+<<<<<<< HEAD
 // console.log(copiedPerson);
+=======
+  removeItem(item){
+    // splice(配列を変更する先頭の位置, 取り除く古い要素の個数)
+    this.data.splice(this.data.indexOf(item),1)
+  }
+>>>>>>> 33ac1b824f170d551356ad8fe4e63e361abdadb9
 
-const add = () => {}
+  getItems(){
+    // 他のやり方では呼び出せない？もしくは適切でない？
+    return [...this.data];
+  }
+}
