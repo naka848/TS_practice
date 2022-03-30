@@ -13,7 +13,29 @@ let Person = class Person {
         this.name = 'Max';
         console.log('コンストラクタ呼ばれたよ～');
     }
+<<<<<<< HEAD
 };
 Person = __decorate([
     Logger
 ], Person);
+=======
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+    getItems() {
+        return [...this.data];
+    }
+}
+<<<<<<< HEAD
+const hobbies = ['Sports', 'Cooking'];
+const activeHobbies = ['Hiking'];
+activeHobbies.push(...hobbies);
+const person = {
+    name: 'Max',
+    age: '30',
+};
+const copiedPerson = Object.assign({}, person);
+const add = () => { };
+=======
+>>>>>>> 33ac1b824f170d551356ad8fe4e63e361abdadb9
+>>>>>>> c7319f4a2766d3ab850336db13a7fac76b2863d0
