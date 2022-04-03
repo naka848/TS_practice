@@ -1,58 +1,83 @@
 function Logger(logString: string) {
-  // console.log("Logger ファクトリ");
+  console.log("LOGGER ファクトリ");
   return function (constructor: Function) {
-    // console.log(logString);
-    // console.log(constructor);
+    console.log(logString);
+    console.log(constructor);
   };
 }
 
 function WithTemplate(template: string, hookId: string) {
-  // console.log("WithTemplate ファクトリ");
+  console.log("TEMPLATE ファクトリ");
   return function (constructor: any) {
-    // console.log("テンプレートを出力中…");
+    console.log("テンプレートを表示");
     const hookEl = document.getElementById(hookId);
     const p = new constructor();
-    // console.log(p);
     if (hookEl) {
-      // hookEl.textContent = template;
-      // console.log(hookEl)
-      // console.log(hookEl.textContent)
-      // console.log(hookEl.innerHTML)
       hookEl.innerHTML = template;
-      // hookEl.querySelector('h1')!.textContent = p.name
-      hookEl.querySelector("h1")!.innerHTML = p.name;
+      hookEl.querySelector("h1")!.textContent = p.name;
     }
   };
 }
 
-@Logger("ログ出力中…")
+// @Logger('ログ出力中 - PERSON')
+@Logger("ログ出力中")
 @WithTemplate("<h1>Personオブジェクト</h1>", "app")
-class Deco {
+class Person {
   name = "Max";
+
   constructor() {
-    // console.log("mimi");
+    console.log("Personオブジェクトを作成中...");
   }
 }
 
-// ----------------------------------------
+const pers = new Person();
 
-function Log(target:any,propertyName:string|symbol){
-  console.log("Property デコレータ")
-  console.log(target)
-  console.log(propertyName)
+console.log(pers);
+
+// ---
+
+function Log(target: any, propertyName: string | Symbol) {
+  console.log("Property デコレータ");
+  console.log(target, propertyName);
 }
 
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log("Accssor デコレータ");
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log3(
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log("Method デコレータ");
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log4(target:number,name:string|Symbol,position:number){
+  console.log("Parameter デコレータ");
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
 
 class Product {
   @Log
   title: string;
   private _price: number;
 
+  // アクセサにデコレータを追加する
+  @Log2
   set price(val: number) {
     if (val > 0) {
       this._price = val;
-    }else{
-      throw new Error('不正な価格です。０以下は設定できません。')
+    } else {
+      throw new Error("不正な価格です - 0以下は設定できません");
     }
   }
 
@@ -61,7 +86,9 @@ class Product {
     this._price = p;
   }
 
-  getPriceWithTax(tax: number) {
+  // メソッドにデコレータを追加する
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
     return this._price * (1 + tax);
   }
 }
