@@ -1,36 +1,16 @@
-class ProjectInput {
-  templateElement: HTMLTemplateElement;
-  hostElement: HTMLDivElement;
-  element: HTMLFormElement;
+class Display{
+  template:HTMLTemplateElement;
+  app:HTMLDivElement;
+  temp:HTMLTemplateElement;
 
-  // ここでテンプレートや表示先の要素を取得
-  constructor() {
-    // ! …nullではないことを保証する
-    this.templateElement = document.getElementById(
-      "project-input"
-    )! as HTMLTemplateElement;
-    console.log(this.templateElement);
-
-    this.hostElement = document.getElementById("app")! as HTMLDivElement;
-    console.log(this.hostElement);
-
-    // const importedNode: 戻り値 DocumentFragment
-    const importedNode = document.importNode(
-      this.templateElement.content,
-      true
-    );
-    console.log("importedNode");
-    console.log(importedNode);
-
-    this.element = importedNode.firstElementChild as HTMLFormElement;
-    console.log("this.element");
-    console.log(this.element);
-    this.attach();
+  constructor(){
+    this.template = document.getElementById('project-input') as HTMLTemplateElement;
+    this.app = document.getElementById('app') as HTMLDivElement;
+    this.temp = this.template.firstChild as HTMLTemplateElement;
   }
 
-  private attach() {
-    this.hostElement.insertAdjacentElement("afterbegin", this.element);
+  function assign() {
+    
   }
+
 }
-
-const p = new ProjectInput();

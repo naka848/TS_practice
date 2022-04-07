@@ -1,20 +1,10 @@
 "use strict";
-class ProjectInput {
+class Display {
     constructor() {
-        this.templateElement = document.getElementById("project-input");
-        console.log(this.templateElement);
-        this.hostElement = document.getElementById("app");
-        console.log(this.hostElement);
-        const importedNode = document.importNode(this.templateElement.content, true);
-        console.log("importedNode");
-        console.log(importedNode);
-        this.element = importedNode.firstElementChild;
-        console.log("this.element");
-        console.log(this.element);
-        this.attach();
-    }
-    attach() {
-        this.hostElement.insertAdjacentElement("afterbegin", this.element);
+        this.template = document.getElementById('project-input');
+        this.app = document.getElementById('app');
+        this.temp = this.template.firstChild;
     }
 }
-const p = new ProjectInput();
+function assign() {
+}
